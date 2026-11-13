@@ -1,6 +1,6 @@
 import React from 'react';
 import { AnomalyAlert } from '../types';
-import { AlertCircle, AlertTriangle, TrendingUp, CheckCircle, ArrowRight, Zap } from 'lucide-react';
+import { AlertCircle, AlertTriangle, TrendingUp, CheckCircle, ArrowRight, Zap, ShieldAlert } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface AlertsProps {
@@ -11,32 +11,33 @@ interface AlertsProps {
 export const ProactiveAlerts: React.FC<AlertsProps> = ({ alerts, onApplyAlert }) => {
   const handleApply = (alert: AnomalyAlert) => {
     confetti({
-      particleCount: 80,
-      spread: 60,
+      particleCount: 50,
+      spread: 45,
+      colors: ['#dc2626', '#ffffff', '#000000'],
       origin: { y: 0.7 }
     });
     onApplyAlert(alert.id);
   };
 
   return (
-    <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-sm flex flex-col justify-between">
+    <div className="p-6 bg-black border border-neutral-800 flex flex-col justify-between">
       <div>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-400">
-              <Zap className="w-4 h-4" />
-            </div>
+            <span className="bg-red-600 text-white font-mono text-xs font-bold px-2 py-0.5 uppercase">
+              WATCHDOG
+            </span>
             <div>
-              <h3 className="text-base font-semibold text-white tracking-tight">
-                AI Autonomous Watchdog
+              <h3 className="text-lg sm:text-xl font-serif font-bold text-white tracking-tight">
+                Autonomous Anomaly Alerts
               </h3>
-              <p className="text-xs text-slate-400">
-                Continuous machine learning scans detecting profit drains & expansion opportunities
+              <p className="text-xs text-neutral-400 font-sans">
+                Continuous scans detecting margin drains across 20M catalog items
               </p>
             </div>
           </div>
-          <span className="text-xs px-2.5 py-1 rounded-full font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">
-            {alerts.filter(a => !a.applied).length} Active Anomalies
+          <span className="text-xs font-mono font-bold px-2.5 py-1 bg-neutral-900 border border-neutral-700 text-white">
+            {alerts.filter(a => !a.applied).length} Active Alerts
           </span>
         </div>
 
@@ -48,51 +49,51 @@ export const ProactiveAlerts: React.FC<AlertsProps> = ({ alerts, onApplyAlert })
             return (
               <div
                 key={alert.id}
-                className={`p-3.5 rounded-xl border transition-all ${
+                className={`p-4 border transition-all ${
                   alert.applied
-                    ? 'bg-slate-950/40 border-slate-800/60 opacity-60'
+                    ? 'bg-neutral-950 border-neutral-800 opacity-50'
                     : isCritical
-                    ? 'bg-rose-950/20 border-rose-800/40 hover:border-rose-700/60'
+                    ? 'bg-neutral-950 border-red-600 border-l-4'
                     : isOpportunity
-                    ? 'bg-emerald-950/20 border-emerald-800/40 hover:border-emerald-700/60'
-                    : 'bg-amber-950/20 border-amber-800/40 hover:border-amber-700/60'
+                    ? 'bg-neutral-950 border-neutral-700 border-l-4 border-l-white'
+                    : 'bg-neutral-950 border-neutral-800 border-l-4 border-l-red-500'
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-2.5">
                     {alert.applied ? (
-                      <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                      <CheckCircle className="w-4 h-4 text-neutral-400 shrink-0 mt-0.5" />
                     ) : isCritical ? (
-                      <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+                      <ShieldAlert className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
                     ) : isOpportunity ? (
-                      <TrendingUp className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                      <TrendingUp className="w-4 h-4 text-white shrink-0 mt-0.5" />
                     ) : (
-                      <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                      <AlertTriangle className="w-4 h-4 text-neutral-300 shrink-0 mt-0.5" />
                     )}
                     <div>
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-semibold text-sm text-slate-100">{alert.title}</span>
-                        <span className="text-[10px] px-1.5 py-0.5 rounded font-medium bg-slate-800 text-slate-300">
+                      <div className="flex items-center gap-2 flex-wrap font-mono">
+                        <span className="font-serif font-bold text-sm text-white">{alert.title}</span>
+                        <span className="text-[10px] px-1.5 py-0.2 bg-neutral-900 border border-neutral-700 text-neutral-300 uppercase">
                           {alert.region}
                         </span>
-                        <span className="text-[10px] px-1.5 py-0.5 rounded font-medium bg-slate-800 text-slate-400">
+                        <span className="text-[10px] px-1.5 py-0.2 bg-neutral-900 border border-neutral-700 text-neutral-400 uppercase">
                           {alert.category}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                      <p className="text-xs text-neutral-300 mt-1 leading-relaxed font-sans">
                         {alert.description}
                       </p>
                     </div>
                   </div>
 
-                  <div className="shrink-0 text-right">
+                  <div className="shrink-0 text-right font-mono">
                     <span
-                      className={`text-xs font-bold px-2 py-0.5 rounded ${
+                      className={`text-xs font-bold px-2 py-0.5 ${
                         isCritical
-                          ? 'text-rose-400 bg-rose-500/10'
+                          ? 'text-white bg-red-600'
                           : isOpportunity
-                          ? 'text-emerald-400 bg-emerald-500/10'
-                          : 'text-amber-400 bg-amber-500/10'
+                          ? 'text-black bg-white font-bold'
+                          : 'text-neutral-200 bg-neutral-800'
                       }`}
                     >
                       {alert.metric}
@@ -100,26 +101,20 @@ export const ProactiveAlerts: React.FC<AlertsProps> = ({ alerts, onApplyAlert })
                   </div>
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-slate-800/60 flex items-center justify-between gap-2">
-                  <span className="text-[11px] text-slate-400 flex items-center gap-1">
-                    <span>💡 Action:</span>
-                    <span className="text-slate-300 font-medium">{alert.actionText}</span>
+                <div className="mt-3 pt-2.5 border-t border-neutral-800/80 flex items-center justify-between gap-2">
+                  <span className="text-[11px] text-neutral-400 font-sans flex items-center gap-1">
+                    <span className="font-mono text-neutral-300 font-bold">Action:</span>
+                    <span className="text-neutral-200">{alert.actionText}</span>
                   </span>
 
                   {alert.applied ? (
-                    <span className="text-xs text-emerald-400 font-medium flex items-center gap-1">
-                      <CheckCircle className="w-3.5 h-3.5" /> Applied
+                    <span className="text-xs font-mono text-neutral-400 font-bold flex items-center gap-1">
+                      <CheckCircle className="w-3.5 h-3.5 text-red-500" /> APPLIED
                     </span>
                   ) : (
                     <button
                       onClick={() => handleApply(alert)}
-                      className={`px-3 py-1 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-all shadow-sm ${
-                        isOpportunity
-                          ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
-                          : isCritical
-                          ? 'bg-rose-600 hover:bg-rose-500 text-white'
-                          : 'bg-amber-600 hover:bg-amber-500 text-white'
-                      }`}
+                      className="px-3 py-1 text-xs font-mono font-bold uppercase tracking-wider bg-red-600 hover:bg-red-700 text-white transition-all shrink-0 flex items-center gap-1"
                     >
                       <span>Execute Fix</span>
                       <ArrowRight className="w-3 h-3" />

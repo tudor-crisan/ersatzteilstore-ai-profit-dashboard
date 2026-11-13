@@ -9,7 +9,8 @@ import { CampaignsTable } from './components/CampaignsTable';
 import { ProductTable } from './components/ProductTable';
 import { AICopilotDrawer } from './components/AICopilotDrawer';
 import { ArchitectureModal } from './components/ArchitectureModal';
-import { Sparkles, ShieldCheck, ArrowRight, Zap } from 'lucide-react';
+import { SlideDeckModal } from './components/SlideDeckModal';
+import { Presentation, MessageSquare, ArrowRight } from 'lucide-react';
 
 export const App: React.FC = () => {
   const [currentRegion, setCurrentRegion] = useState<Region>('ALL');
@@ -19,6 +20,7 @@ export const App: React.FC = () => {
   const [appliedProfitBoost, setAppliedProfitBoost] = useState<number>(0);
   const [isCopilotOpen, setIsCopilotOpen] = useState<boolean>(false);
   const [isArchitectureOpen, setIsArchitectureOpen] = useState<boolean>(false);
+  const [isSlideDeckOpen, setIsSlideDeckOpen] = useState<boolean>(false);
 
   // Filter products and campaigns by region if not 'ALL'
   const filteredProducts = currentRegion === 'ALL' 
@@ -42,52 +44,50 @@ export const App: React.FC = () => {
   const unreadAlerts = alerts.filter(a => !a.applied).length;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-black text-white flex flex-col font-sans">
       {/* Top Navigation */}
       <Header
         currentRegion={currentRegion}
         onSelectRegion={setCurrentRegion}
         onOpenCopilot={() => setIsCopilotOpen(true)}
         onOpenArchitecture={() => setIsArchitectureOpen(true)}
+        onOpenSlideDeck={() => setIsSlideDeckOpen(true)}
         unreadAlertCount={unreadAlerts}
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
-        {/* Banner Alert for Afram's Skill Test Demo */}
-        <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-950/60 via-indigo-950/40 to-slate-900 border border-blue-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-lg shadow-blue-900/10">
-          <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-blue-500/20 text-blue-400">
-              <Sparkles className="w-5 h-5 text-cyan-300" />
+      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-8 space-y-6">
+        
+        {/* Executive Banner for Afram & Leadership */}
+        <div className="p-5 sm:p-6 bg-neutral-950 border-l-4 border-l-red-600 border border-neutral-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="bg-red-600 text-white font-mono text-[10px] font-bold uppercase px-2 py-0.5">
+                EXECUTIVE DEMO
+              </span>
+              <span className="text-white font-serif font-bold text-base sm:text-lg">
+                Ersatzteilstore Unit Economics & AI Profit Control System
+              </span>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-white text-sm">
-                  AI Profit Engine Proof-of-Concept for Ersatzteilstore
-                </span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-semibold border border-cyan-500/30">
-                  Ready for Review
-                </span>
-              </div>
-              <p className="text-xs text-slate-300 mt-0.5">
-                Connecting <strong>Shopify, Google Ads, Meta Ads & GA4</strong>. Open the AI Copilot to ask the 3 benchmark questions directly!
-              </p>
-            </div>
+            <p className="text-xs text-neutral-400 font-sans max-w-3xl">
+              Engineered specifically for <strong>20M spare parts articles</strong> and multi-country expansion across <strong>CH, DE, ES, and IT</strong>. Solves the return rate and freight blindspot of standard ad agency dashboards.
+            </p>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2.5 shrink-0 font-mono text-xs">
+            <button
+              onClick={() => setIsSlideDeckOpen(true)}
+              className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold uppercase tracking-wider flex items-center gap-2 transition-all"
+            >
+              <Presentation className="w-4 h-4" />
+              <span>Open Pitch Deck</span>
+            </button>
             <button
               onClick={() => setIsCopilotOpen(true)}
-              className="px-3.5 py-1.5 text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-xl shadow-md shadow-blue-500/20 flex items-center gap-1.5 transition-all"
+              className="px-4 py-2 bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-neutral-200 font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all"
             >
               <span>Test AI Copilot</span>
               <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-            <button
-              onClick={() => setIsArchitectureOpen(true)}
-              className="px-3.5 py-1.5 text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 rounded-xl transition-all"
-            >
-              View Architecture
             </button>
           </div>
         </div>
@@ -99,7 +99,7 @@ export const App: React.FC = () => {
         />
 
         {/* 2. Visual Waterfall + Proactive Anomaly Watchdog */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           <div className="lg:col-span-7">
             <ProfitWaterfallChart appliedProfitBoost={appliedProfitBoost} />
           </div>
@@ -122,16 +122,16 @@ export const App: React.FC = () => {
       {!isCopilotOpen && (
         <button
           onClick={() => setIsCopilotOpen(true)}
-          className="fixed bottom-6 right-6 z-40 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-2xl shadow-xl shadow-blue-500/30 flex items-center gap-2.5 transition-all transform hover:scale-105 group border border-blue-400/30"
+          className="fixed bottom-6 right-6 z-40 px-4 py-3 bg-red-600 hover:bg-red-700 text-white shadow-2xl flex items-center gap-2.5 transition-all border border-red-500 font-mono text-xs font-bold uppercase tracking-wider group"
         >
           <div className="relative">
-            <Sparkles className="w-5 h-5 text-cyan-300 group-hover:rotate-12 transition-transform" />
+            <MessageSquare className="w-4 h-4 text-white" />
             {unreadAlerts > 0 && (
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+              <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-white"></span>
             )}
           </div>
-          <span className="font-semibold text-xs tracking-wide">Ask AI Profit Copilot</span>
-          <span className="text-[10px] bg-white/20 px-1.5 py-0.5 rounded font-mono">⌘K</span>
+          <span>AI Profit Copilot</span>
+          <span className="text-[10px] bg-black/40 px-1.5 py-0.5 font-mono text-white/90">⌘K</span>
         </button>
       )}
 
@@ -143,26 +143,34 @@ export const App: React.FC = () => {
         campaigns={campaigns}
       />
 
-      {/* Architecture & Connectors Modal */}
+      {/* 5-Layer Architecture Modal */}
       <ArchitectureModal
         isOpen={isArchitectureOpen}
         onClose={() => setIsArchitectureOpen(false)}
       />
 
-      {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950 py-6 px-4 mt-8 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p>
-            Ersatzteilstore AI Profit Dashboard • Built for Switzerland, Germany, Spain & Italy Expansion
-          </p>
-          <div className="flex items-center gap-3 text-slate-400">
-            <span>Shopify Plus Webhooks</span>
-            <span>•</span>
-            <span>Google Ads API</span>
-            <span>•</span>
-            <span>Meta Graph API</span>
-            <span>•</span>
-            <span>GA4 BigQuery</span>
+      {/* Strategic Pitch Deck Modal */}
+      <SlideDeckModal
+        isOpen={isSlideDeckOpen}
+        onClose={() => setIsSlideDeckOpen(false)}
+      />
+
+      {/* Footer in Tudorbuilds / MyDeveloperQuit Style */}
+      <footer className="border-t border-neutral-800 bg-black py-8 px-4 sm:px-8 mt-12 text-xs font-mono text-neutral-500">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 bg-red-600"></span>
+            <span className="text-neutral-300 font-bold">ERSATZTEILSTORE AG</span>
+            <span>&bull;</span>
+            <span>Switzerland &bull; Germany &bull; Spain &bull; Italy</span>
+          </div>
+
+          <div className="flex items-center gap-4 text-neutral-400">
+            <span>Production Prototype by Tudor Crișan</span>
+            <span>&bull;</span>
+            <a href="https://tudorbuilds.com" target="_blank" rel="noreferrer" className="text-white hover:text-red-500 underline decoration-neutral-700">
+              tudorbuilds.com
+            </a>
           </div>
         </div>
       </footer>

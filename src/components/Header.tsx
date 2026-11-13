@@ -1,12 +1,13 @@
 import React from 'react';
 import { Region } from '../types';
-import { Sparkles, Layers, RefreshCw, Globe, Calendar, Download } from 'lucide-react';
+import { Presentation, Layers, MessageSquare, Terminal } from 'lucide-react';
 
 interface HeaderProps {
   currentRegion: Region;
   onSelectRegion: (r: Region) => void;
   onOpenCopilot: () => void;
   onOpenArchitecture: () => void;
+  onOpenSlideDeck: () => void;
   unreadAlertCount: number;
 }
 
@@ -15,117 +16,121 @@ export const Header: React.FC<HeaderProps> = ({
   onSelectRegion,
   onOpenCopilot,
   onOpenArchitecture,
+  onOpenSlideDeck,
   unreadAlertCount
 }) => {
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md px-4 sm:px-6 py-3.5">
+    <header className="sticky top-0 z-30 border-b border-neutral-800 bg-black text-white px-4 sm:px-8 py-3.5">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Left: Branding & Status */}
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 p-[1px] shadow-lg shadow-blue-500/20">
-            <div className="h-full w-full bg-slate-950 rounded-[11px] flex items-center justify-center">
-              <span className="font-extrabold text-lg text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
-                ES
-              </span>
-            </div>
+          <div className="w-8 h-8 bg-red-600 flex items-center justify-center font-bold text-white font-mono text-sm">
+            ES
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-bold text-slate-100 text-lg tracking-tight">Ersatzteilstore</span>
-              <span className="text-xs px-2 py-0.5 rounded-full font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                ProfitPulse AI
+              <span className="font-serif font-bold text-white text-lg tracking-tight">
+                Ersatzteilstore
               </span>
-              <div className="hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px]">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 radar-dot"></span>
-                <span>Live Data Sync</span>
+              <span className="bg-red-600 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 font-mono">
+                Profit Engine
+              </span>
+              <div className="hidden sm:flex items-center gap-1.5 px-2 py-0.5 bg-neutral-900 border border-neutral-800 text-neutral-300 text-[11px] font-mono">
+                <span className="w-1.5 h-1.5 bg-red-600 radar-dot-red"></span>
+                <span>Live Sync (20.4M SKUs)</span>
               </div>
             </div>
-            <p className="text-xs text-slate-400 hidden sm:block">
-              AI Unit Economics Engine • 20.4M Articles Monitored
+            <p className="text-[11px] text-neutral-400 font-sans hidden sm:block">
+              Unit Economics & Autonomous POAS Intelligence &bull; Built by Tudor Crișan
             </p>
           </div>
         </div>
 
         {/* Center: Market Switcher */}
-        <div className="flex items-center gap-1.5 p-1 bg-slate-900 border border-slate-800 rounded-xl">
+        <div className="flex items-center border border-neutral-800 bg-neutral-950 p-1 font-mono text-xs">
           <button
             onClick={() => onSelectRegion('ALL')}
-            className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all ${
+            className={`px-3 py-1 font-medium transition-all ${
               currentRegion === 'ALL'
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                ? 'bg-red-600 text-white font-bold'
+                : 'text-neutral-400 hover:text-white'
             }`}
           >
             All Markets
           </button>
           <button
             onClick={() => onSelectRegion('CH')}
-            className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1 font-medium transition-all flex items-center gap-1 ${
               currentRegion === 'CH'
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                ? 'bg-red-600 text-white font-bold'
+                : 'text-neutral-400 hover:text-white'
             }`}
           >
-            <span>🇨🇭</span>
             <span>CH (CHF)</span>
           </button>
           <button
             onClick={() => onSelectRegion('DE')}
-            className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1 font-medium transition-all flex items-center gap-1 ${
               currentRegion === 'DE'
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                ? 'bg-red-600 text-white font-bold'
+                : 'text-neutral-400 hover:text-white'
             }`}
           >
-            <span>🇩🇪</span>
             <span>DE (€)</span>
           </button>
           <button
             onClick={() => onSelectRegion('ES')}
-            className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1 font-medium transition-all flex items-center gap-1 ${
               currentRegion === 'ES'
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                ? 'bg-red-600 text-white font-bold'
+                : 'text-neutral-400 hover:text-white'
             }`}
           >
-            <span>🇪🇸</span>
             <span>ES (€)</span>
           </button>
           <button
             onClick={() => onSelectRegion('IT')}
-            className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1 font-medium transition-all flex items-center gap-1 ${
               currentRegion === 'IT'
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+                ? 'bg-red-600 text-white font-bold'
+                : 'text-neutral-400 hover:text-white'
             }`}
           >
-            <span>🇮🇹</span>
             <span>IT (€)</span>
           </button>
         </div>
 
         {/* Right: Actions */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2">
+          {/* Pitch Deck Button */}
+          <button
+            onClick={onOpenSlideDeck}
+            className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-mono font-bold bg-neutral-900 border border-neutral-700 hover:border-red-600 text-white transition-all group"
+          >
+            <Presentation className="w-3.5 h-3.5 text-red-500 group-hover:scale-110 transition-transform" />
+            <span>Slide Deck</span>
+            <span className="bg-red-600 text-white text-[9px] px-1.5 py-0.2 font-sans uppercase">
+              8 Slides
+            </span>
+          </button>
+
           <button
             onClick={onOpenArchitecture}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-300 bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-800/80 rounded-lg transition-all"
-            title="View Modular Integration Architecture"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-neutral-300 bg-neutral-950 border border-neutral-800 hover:border-neutral-700 hover:text-white transition-all"
+            title="View 5-Layer Modular Architecture"
           >
-            <Layers className="w-3.5 h-3.5 text-indigo-400" />
-            <span className="hidden sm:inline">Connectors & Arch</span>
+            <Layers className="w-3.5 h-3.5 text-neutral-400" />
+            <span>Architecture</span>
           </button>
 
           <button
             onClick={onOpenCopilot}
-            className="relative flex items-center gap-2 px-3.5 py-1.5 text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 rounded-lg shadow-md shadow-blue-500/20 transition-all group"
+            className="flex items-center gap-2 px-3.5 py-1.5 text-xs font-mono font-bold text-white bg-red-600 hover:bg-red-700 transition-all border border-red-500"
           >
-            <Sparkles className="w-3.5 h-3.5 text-cyan-300 group-hover:rotate-12 transition-transform" />
+            <MessageSquare className="w-3.5 h-3.5 text-white" />
             <span>AI Copilot</span>
             {unreadAlertCount > 0 && (
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-300"></span>
-              </span>
+              <span className="w-2 h-2 rounded-full bg-white"></span>
             )}
           </button>
         </div>

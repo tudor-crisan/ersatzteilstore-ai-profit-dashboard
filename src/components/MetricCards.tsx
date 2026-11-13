@@ -20,124 +20,103 @@ export const MetricCards: React.FC<MetricCardsProps> = ({ currentRegion, applied
   const netMargin = ((netProfit / revenue) * 100).toFixed(1);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
       {/* 1. True Net Profit */}
-      <div className="p-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-900/60 border border-slate-800 shadow-sm relative overflow-hidden group hover:border-blue-500/40 transition-all">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl group-hover:bg-blue-500/10 transition-all"></div>
-        <div className="flex items-center justify-between text-slate-400 mb-2">
-          <span className="text-xs font-medium uppercase tracking-wider">True Net Profit</span>
-          <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
-            <DollarSign className="w-4 h-4" />
-          </div>
+      <div className="p-5 bg-black border border-neutral-800 hover:border-red-600 transition-colors relative">
+        <div className="flex items-center justify-between text-neutral-400 mb-2">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-300 font-bold">True Net Profit</span>
+          <span className="text-red-500 font-mono text-xs font-bold">CHF/EUR</span>
         </div>
-        <div className="text-2xl font-bold text-white tracking-tight">
-          {netProfit.toLocaleString()} <span className="text-sm font-semibold text-slate-400">{currencySymbol}</span>
+        <div className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+          {netProfit.toLocaleString()} <span className="text-xs font-mono text-neutral-400 font-normal">{currencySymbol}</span>
         </div>
-        <div className="flex items-center gap-1.5 mt-2.5 text-xs text-emerald-400 font-medium">
-          <ArrowUpRight className="w-3.5 h-3.5" />
+        <div className="flex items-center gap-1.5 mt-2 text-xs font-mono text-neutral-300">
+          <ArrowUpRight className="w-3.5 h-3.5 text-red-500" />
           <span>+14.8% vs last month</span>
         </div>
-        <p className="text-[10px] text-slate-500 mt-1">After COGS, Ads, Shipping & Returns</p>
+        <p className="text-[10px] text-neutral-400 font-sans mt-1">After COGS, Ads, Shipping & Returns</p>
       </div>
 
-      {/* 2. Blended POAS (Profit On Ad Spend) */}
-      <div className="p-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-900/60 border border-slate-800 shadow-sm relative overflow-hidden group hover:border-indigo-500/40 transition-all">
-        <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full blur-2xl group-hover:bg-indigo-500/10 transition-all"></div>
-        <div className="flex items-center justify-between text-slate-400 mb-2">
+      {/* 2. Blended POAS */}
+      <div className="p-5 bg-black border border-neutral-800 hover:border-red-600 transition-colors relative">
+        <div className="flex items-center justify-between text-neutral-400 mb-2">
           <div className="flex items-center gap-1">
-            <span className="text-xs font-medium uppercase tracking-wider">Blended POAS</span>
-            <div title="Profit On Ad Spend = True Gross Profit / Ad Spend. Far more reliable than ROAS." className="cursor-help">
-              <HelpCircle className="w-3 h-3 text-slate-500" />
-            </div>
+            <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-300 font-bold">Blended POAS</span>
           </div>
-          <div className="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-400">
-            <TrendingUp className="w-4 h-4" />
-          </div>
+          <span className="bg-red-600 text-white font-mono text-[9px] px-1.5 py-0.2 font-bold uppercase">KPI</span>
         </div>
-        <div className="text-2xl font-bold text-white tracking-tight">
+        <div className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
           {poas}x
         </div>
-        <div className="flex items-center gap-1.5 mt-2.5 text-xs text-emerald-400 font-medium">
-          <ArrowUpRight className="w-3.5 h-3.5" />
-          <span>Healthy (&gt;2.0x target)</span>
+        <div className="flex items-center gap-1.5 mt-2 text-xs font-mono text-neutral-300">
+          <span className="text-red-500 font-bold">POAS</span>
+          <span>&gt; 2.0x Target</span>
         </div>
-        <p className="text-[10px] text-slate-500 mt-1">Replaces vanity ROAS ({FINANCIAL_OVERVIEW.blendedRoas}x)</p>
+        <p className="text-[10px] text-neutral-400 font-sans mt-1">Replaces vanity ROAS ({FINANCIAL_OVERVIEW.blendedRoas}x)</p>
       </div>
 
       {/* 3. Gross Revenue */}
-      <div className="p-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-900/60 border border-slate-800 shadow-sm hover:border-slate-700 transition-all">
-        <div className="flex items-center justify-between text-slate-400 mb-2">
-          <span className="text-xs font-medium uppercase tracking-wider">Gross Revenue</span>
-          <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-400">
-            <ShoppingBag className="w-4 h-4" />
-          </div>
+      <div className="p-5 bg-black border border-neutral-800 hover:border-neutral-700 transition-colors">
+        <div className="flex items-center justify-between text-neutral-400 mb-2">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-300 font-bold">Gross Revenue</span>
+          <span className="text-neutral-400 font-mono text-xs">Top-line</span>
         </div>
-        <div className="text-2xl font-bold text-white tracking-tight">
-          {revenue.toLocaleString()} <span className="text-sm font-semibold text-slate-400">{currencySymbol}</span>
+        <div className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+          {revenue.toLocaleString()} <span className="text-xs font-mono text-neutral-400 font-normal">{currencySymbol}</span>
         </div>
-        <div className="flex items-center gap-1.5 mt-2.5 text-xs text-emerald-400 font-medium">
-          <ArrowUpRight className="w-3.5 h-3.5" />
+        <div className="flex items-center gap-1.5 mt-2 text-xs font-mono text-neutral-300">
+          <ArrowUpRight className="w-3.5 h-3.5 text-neutral-400" />
           <span>+8.2% YoY growth</span>
         </div>
-        <p className="text-[10px] text-slate-500 mt-1">Shopify multi-store aggregated</p>
+        <p className="text-[10px] text-neutral-400 font-sans mt-1">Shopify multi-store aggregated</p>
       </div>
 
       {/* 4. Total Paid Ad Spend */}
-      <div className="p-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-900/60 border border-slate-800 shadow-sm hover:border-slate-700 transition-all">
-        <div className="flex items-center justify-between text-slate-400 mb-2">
-          <span className="text-xs font-medium uppercase tracking-wider">Total Ad Spend</span>
-          <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-400">
-            <Percent className="w-4 h-4" />
-          </div>
+      <div className="p-5 bg-black border border-neutral-800 hover:border-neutral-700 transition-colors">
+        <div className="flex items-center justify-between text-neutral-400 mb-2">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-300 font-bold">Total Ad Spend</span>
+          <span className="text-neutral-400 font-mono text-xs">Paid Ads</span>
         </div>
-        <div className="text-2xl font-bold text-white tracking-tight">
-          {adSpend.toLocaleString()} <span className="text-sm font-semibold text-slate-400">{currencySymbol}</span>
+        <div className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+          {adSpend.toLocaleString()} <span className="text-xs font-mono text-neutral-400 font-normal">{currencySymbol}</span>
         </div>
-        <div className="flex items-center gap-1.5 mt-2.5 text-xs text-slate-400 font-medium">
-          <span>Google (64%) • Meta (36%)</span>
+        <div className="flex items-center gap-1.5 mt-2 text-xs font-mono text-neutral-400">
+          <span>Google 64% &bull; Meta 36%</span>
         </div>
-        <p className="text-[10px] text-slate-500 mt-1">16.6% of gross revenue</p>
+        <p className="text-[10px] text-neutral-400 font-sans mt-1">16.6% of gross revenue</p>
       </div>
 
       {/* 5. Return Rate */}
-      <div className="p-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-900/60 border border-slate-800 shadow-sm hover:border-slate-700 transition-all">
-        <div className="flex items-center justify-between text-slate-400 mb-2">
-          <span className="text-xs font-medium uppercase tracking-wider">Return Rate</span>
-          <div className={`p-1.5 rounded-lg ${returnRate > 10 ? 'bg-rose-500/10 text-rose-400' : 'bg-slate-800 text-slate-300'}`}>
-            <ShieldCheck className="w-4 h-4" />
-          </div>
-        </div>
-        <div className="text-2xl font-bold text-white tracking-tight flex items-baseline gap-2">
-          <span>{returnRate}%</span>
+      <div className="p-5 bg-black border border-neutral-800 hover:border-red-600 transition-colors">
+        <div className="flex items-center justify-between text-neutral-400 mb-2">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-300 font-bold">Return Rate</span>
           {returnRate > 10 && (
-            <span className="text-[11px] font-semibold text-rose-400 px-1.5 py-0.5 rounded bg-rose-500/10 border border-rose-500/20">
-              High
-            </span>
+            <span className="bg-red-600 text-white font-mono text-[9px] px-1.5 py-0.2 font-bold uppercase">Leak</span>
           )}
         </div>
-        <div className="flex items-center gap-1.5 mt-2.5 text-xs text-rose-400 font-medium">
-          <ArrowDownRight className="w-3.5 h-3.5" />
-          <span>DE Chassis Parts driving loss</span>
+        <div className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+          {returnRate}%
         </div>
-        <p className="text-[10px] text-slate-500 mt-1">CH is only 2.4% vs DE 14.2%</p>
+        <div className="flex items-center gap-1.5 mt-2 text-xs font-mono text-red-500 font-bold">
+          <ArrowDownRight className="w-3.5 h-3.5" />
+          <span>DE Chassis misdiagnosis</span>
+        </div>
+        <p className="text-[10px] text-neutral-400 font-sans mt-1">CH is 2.4% vs DE 14.2%</p>
       </div>
 
       {/* 6. Net Profit Margin */}
-      <div className="p-4 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-900/60 border border-slate-800 shadow-sm hover:border-slate-700 transition-all">
-        <div className="flex items-center justify-between text-slate-400 mb-2">
-          <span className="text-xs font-medium uppercase tracking-wider">Net Margin (CM3)</span>
-          <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
-            <Percent className="w-4 h-4" />
-          </div>
+      <div className="p-5 bg-black border border-neutral-800 hover:border-neutral-700 transition-colors">
+        <div className="flex items-center justify-between text-neutral-400 mb-2">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-neutral-300 font-bold">Net Margin (CM3)</span>
+          <span className="text-neutral-400 font-mono text-xs">Bottom-line</span>
         </div>
-        <div className="text-2xl font-bold text-emerald-400 tracking-tight">
+        <div className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
           {netMargin}%
         </div>
-        <div className="flex items-center gap-1.5 mt-2.5 text-xs text-emerald-400 font-medium">
-          <ArrowUpRight className="w-3.5 h-3.5" />
+        <div className="flex items-center gap-1.5 mt-2 text-xs font-mono text-neutral-300">
           <span>+3.2% vs target</span>
         </div>
-        <p className="text-[10px] text-slate-500 mt-1">E-commerce industry avg is 12-18%</p>
+        <p className="text-[10px] text-neutral-400 font-sans mt-1">Catalog target is &gt;20%</p>
       </div>
     </div>
   );

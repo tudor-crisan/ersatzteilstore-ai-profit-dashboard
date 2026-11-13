@@ -8,20 +8,30 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          900: '#1e3a8a',
+        red: {
+          50: '#fef2f2',
+          100: '#fee2e2',
+          200: '#fecaca',
+          500: '#ef4444',
+          600: '#dc2626', // Tudorbuilds signature red
+          700: '#b91c1c',
+          800: '#991b1b',
+          900: '#7f1d1d',
+          950: '#450a0a',
         },
-        profit: {
-          emerald: '#10b981',
-          danger: '#ef4444',
-          warning: '#f59e0b',
+        dark: {
+          bg: '#000000',
+          card: '#0a0a0a',
+          surface: '#111111',
+          border: '#222222',
+          muted: '#71717a',
         }
       },
+      fontFamily: {
+        serif: ['Georgia', '"Noto Serif"', '"Times New Roman"', 'Times', 'serif'],
+        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
+      }
     },
   },
   plugins: [],
